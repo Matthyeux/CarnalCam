@@ -10,7 +10,25 @@
  */
 
 module.exports.bootstrap = function(cb) {
-
+	// Create Admin user is not exist
+  User.findOne({username: 'carnal'}).exec(function(err, found){
+	  if(err) {
+		  console.log(err)
+	  } else {
+		  if(!found){
+				User
+					.create({username: 'carnal', email: 'contact@carnal.com', password: 'carnal'})
+					.then(function(user){
+						return {
+							user: user,
+							token: SecurityService.createToken(user)
+						}
+					})
+					.catch(console.log("error, impossible to create 'carnal' user"))
+			}
+	  }
+  });
+	
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();
