@@ -1,63 +1,69 @@
 /**
- *	Passport Configuration
+ * Passport configuration file where you should configure strategies
  */
-
-
 var passport = require('passport');
-var LocalStrategie = require('passport-local');
-var jwtStrategy = require('passport-jwt');
+var LocalStrategy = require('passport-local').Strategy;
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtractJwt;
 
-var EXPIRES = 60*24;
-var SECRET = "jdgUHJK09vhdkHGFC4567fghjkbscGHJ";
-var ALGO = "HS256";
-
-
-
-/** Config for local Strategy **/
-var LOCAL_STRATEGY_CONFIG = {
-	usernameField : 'email',
-	passwordField : 'password'
-}
-
-/** Config for jwt Strategy **/
-var JWT_STRATEGY_CONFIG = {
-	secretOrKey : SECRET,
-	issuer: '',
-	audience : ''
-}
-
-
-function onLocalStrategyAuth(email,password,next){
-	User.findOne({email: email})
-		.exec(function(error,user){
-			if(errro) return next(error,false,{})
-				if(!user) return next(null,false,{
-					code: 'E_USER_NOT_FOUND',
-					message: email + 'is not found'
-				});
-			if(!SecurityService.comparePassword(password,user)){
-				return next(null,false,{
-					code: 'E_USER_PASSWORD_MISMATCH',
-					message: 'email or password is wrong'
-				});
-			}
-		});
-}
-
-function onJwtStrategyAuth(payload,next){
-	var user = payload.user
-	return next(null,user,{})
-}
-
-passeport.use(
-	new LocalStrategy(LOCAL_STRATEGY_CONFIG,onLocalStrategyAuth())
-);
-passeport.use(
-	new JwtStrategy( JWT_STRATEGY_CONFIG, onJwtStrategyAuth())
-);
+var EXPIRES_IN = '3d';
+var SECRET = process.env.tokenSecret || "4ukI0uIVnB3iI1yxj646fVXSE3ZVk4doZgz6fTbNg7jO41EAtl20J5F7Trtwe7OM";
+var ALGORITHM = "HS256";
 
 module.exports.jwtSettings = {
-	expires: EXPIRES,
-	algo: ALGO,
-	secret: SECRET
+    expiresIn: EXPIRES_IN,
+    secret: SECRET,
+    algorithm: ALGORITHM,
+};
+/**
+ * Configuration object for local strategy
+ */
+var LOCAL_STRATEGY_CONFIG = {
+    usernameField: 'identifier',
+    passwordField: 'password',
+};
+
+/**
+ * Configuration object for JWT strategy
+ */
+var JWT_STRATEGY_CONFIG = {
+    secretOrKey: SECRET,
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+};
+
+/**
+ * Triggers when user authenticates via local strategy
+ */
+function _onLocalStrategyAuth(identifier, password, next) {
+
+    User.findOne(
+        {
+            or: [
+                {username: identifier},
+                {email: identifier}
+            ]
+        })
+        .exec(function (error, user) {
+            if (error) return next(error, false, {});
+            if (!user || !SecurityService.comparePassword(password, user)) {
+                return next(null, false, {})
+            }
+            return next(null, user, {});
+        });
 }
+
+/**
+ * Triggers when user authenticates via JWT strategy
+ */
+function _onJwtStrategyAuth(payload, next) {
+    var user = payload.user;
+    return next(null, user, {});
+}
+
+passport.use(
+    new LocalStrategy(LOCAL_STRATEGY_CONFIG, _onLocalStrategyAuth)
+);
+
+passport.use(
+    new JwtStrategy(JWT_STRATEGY_CONFIG, _onJwtStrategyAuth));
+

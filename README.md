@@ -1,3 +1,3 @@
-# carnalcam
+# CatapuleCam
 
 a [Sails](http://sailsjs.org) application
