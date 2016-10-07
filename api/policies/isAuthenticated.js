@@ -8,6 +8,6 @@ module.exports = function (req,res,next){
 		if(!user) return unauthorized(null,info);
 		req.user = user;
 		next()
-	})
+	})(req,res)
 	
 }

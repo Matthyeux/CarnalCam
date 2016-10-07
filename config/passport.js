@@ -35,7 +35,7 @@ var JWT_STRATEGY_CONFIG = {
  * Triggers when user authenticates via local strategy
  */
 function _onLocalStrategyAuth(identifier, password, next) {
-
+	console.log('ici1');
     User.findOne(
         {
             or: [
