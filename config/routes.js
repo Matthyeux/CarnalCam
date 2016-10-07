@@ -36,7 +36,8 @@ module.exports.routes = {
     view: 'homepage'
   },
   'POST /auth/signin' : 'AuthController.signin',
-  'POST /auth/signup' : 'AuthController.signup'
+  'POST /auth/signup' : 'AuthController.signup',
+  'GET /user/me'	  :	'UserController.me'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
