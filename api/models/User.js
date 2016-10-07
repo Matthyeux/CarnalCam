@@ -10,29 +10,40 @@ module.exports = {
 
     attributes: {
         username: {
-            type: 'string',
-            required: true,
-            unique: true,
-            alphanumericdashed: true
+          type: 'string',
+          required: true,
+          unique: true,
+          alphanumericdashed: true
         },
         email: {
-            type: 'email',
-            required: true,
-            unique: true,
+          type: 'email',
+          required: true,
+          unique: true,
         },
         password: {
-            type: 'string',
-            required: true,
+          type: 'string',
+          required: true,
         },
         firstName: {
-            type: 'string',
-            defaultsTo: ''
+          type: 'string',
+          defaultsTo: ''
         },
         lastName: {
-            type: 'string',
-            defaultsTo: ''
+          type: 'string',
+          defaultsTo: ''
         },
-
+        role: {
+	        model: 'Role'
+        },
+        groups: {
+	        collection: 'UserGroup',
+	        via: 'members',
+	        dominant: true
+        },
+        logs: {
+	        collection: 'Log',
+	        via: 'user'
+        },
 
         toJSON: function () {
             var obj = this.toObject();
