@@ -42,6 +42,6 @@ module.exports = {
             .then(res.created)
             .catch(res.serverError)
     }
-	
+
 };
 
