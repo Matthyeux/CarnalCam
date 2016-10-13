@@ -45,6 +45,6 @@ module.exports = {
     loginForm: function(req,res) {
 		return res.view('login');
     }
-	
+
 };
 
