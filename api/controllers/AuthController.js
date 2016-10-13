@@ -41,6 +41,9 @@ module.exports = {
             })
             .then(res.created)
             .catch(res.serverError)
+    },
+    loginForm: function(req,res) {
+		return res.view('login');
     }
 	
 };
