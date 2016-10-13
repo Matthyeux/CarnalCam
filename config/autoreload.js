@@ -1,3 +1,7 @@
+/**
+ * Created by Matth on 13/10/2016.
+ */
+
 module.exports.autoreload = {
   active: true,
   usePolling: false,
@@ -10,4 +14,4 @@ module.exports.autoreload = {
     "config/locales"
   ],
   ignored: []
-}
+};
