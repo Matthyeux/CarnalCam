@@ -37,7 +37,12 @@ module.exports.routes = {
   },
   'POST /auth/signin' : 'AuthController.signin',
   'POST /auth/signup' : 'AuthController.signup',
-  'GET /user/me'	  :	'UserController.me'
+  'GET /user/me'	  :	'UserController.me',
+
+  'DELETE /api/user/removegroup/:id/' : 'UserController.removeGroup',
+  'DELETE /api/usergroup/removeuser/:id' : 'UserGroup.removeUser',
+  'DELETE /api/device/removegroup/:id/' : 'DeviceController.removeGroup',
+  'DELETE /api/devicegroup/removedevice/:id' : 'DeviceGroup.removeDevice'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

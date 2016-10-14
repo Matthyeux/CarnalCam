@@ -32,9 +32,6 @@ module.exports = {
           type: 'string',
           defaultsTo: ''
         },
-        role: {
-	        model: 'Role'
-        },
         groups: {
 	        collection: 'UserGroup',
 	        via: 'members',
