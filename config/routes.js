@@ -39,7 +39,7 @@ module.exports.routes = {
   'POST /auth/signup' : 'AuthController.signup',
   'GET /user/me'	  :	'UserController.me',
 
-  'GET /login'	:	'AuthController.loginForm'
+  'GET /login'	:	'AuthController.loginForm',
 
   'DELETE /api/user/removegroup/:id/' : 'UserController.removeGroup',
   'DELETE /api/usergroup/removeuser/:id' : 'UserGroup.removeUser',
