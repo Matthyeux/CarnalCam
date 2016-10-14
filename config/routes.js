@@ -32,17 +32,18 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
   'POST /auth/signin' : 'AuthController.signin',
   'POST /auth/signup' : 'AuthController.signup',
-  'GET /user/me'	  :	'UserController.me',
 
-  'DELETE /api/user/removegroup/:id/' : 'UserController.removeGroup',
-  'DELETE /api/usergroup/removeuser/:id' : 'UserGroup.removeUser',
-  'DELETE /api/device/removegroup/:id/' : 'DeviceController.removeGroup',
-  'DELETE /api/devicegroup/removedevice/:id' : 'DeviceGroup.removeDevice'
+  'PUT /user/:id' : 'UserController.updateGroup',
+  'PUT /device/:id' : 'DeviceController.updateGroup',
+  'PUT /devicegroup/:id' : 'DeviceGroupController.updateDevice',
+  'PUT /usergroup/:id' : 'UserGroupController.updateUser',
+
+  'DELETE /user/removegroup/:id/' : 'UserController.removeGroup',
+  'DELETE /usergroup/removeuser/:id' : 'UserGroup.removeUser',
+  'DELETE /device/removegroup/:id/' : 'DeviceController.removeGroup',
+  'DELETE /devicegroup/removedevice/:id' : 'DeviceGroup.removeDevice'
 
   /***************************************************************************
   *                                                                          *
