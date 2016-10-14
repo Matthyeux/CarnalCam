@@ -17,7 +17,7 @@ module.exports.bootstrap = function(cb) {
 	  } else {
 		  if(!found){
 				User
-					.create({username: 'carnal', email: 'contact@carnal.com', password: 'carnal'})
+					.create({username: 'carnal', email: 'contact@carnal.com', password: 'carnal', isAdmin: true})
 					.then(function(user){
 						return {
 							user: user,

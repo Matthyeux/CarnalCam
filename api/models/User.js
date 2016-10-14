@@ -32,6 +32,10 @@ module.exports = {
           type: 'string',
           defaultsTo: ''
         },
+	isAdmin: {
+	  type: 'boolean',
+	  defaultsTo: false
+	},
         groups: {
 	        collection: 'UserGroup',
 	        via: 'members',
