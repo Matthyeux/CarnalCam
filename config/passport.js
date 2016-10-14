@@ -43,6 +43,7 @@ function _onLocalStrategyAuth(identifier, password, next) {
             ]
         })
         .exec(function (error, user) {
+
             if (error) return next(error, false, {});
             if (!user || !SecurityService.comparePassword(password, user)) {
                 return next(null, false, {})

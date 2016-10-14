@@ -8,10 +8,11 @@
 
 var passport = require ('passport');
 
-function onPassportAuth(req, res, error, user, info)
-{
+function onPassportAuth(req, res, error, user, info)  {
     if(error) return res.serverError(error);
     if(!user) return res.unauthorized(null,info);
+
+    LogService.UserLogin(user);
 
     return res.ok (
         {
@@ -24,8 +25,7 @@ function onPassportAuth(req, res, error, user, info)
 
 module.exports = {
 
-    signin: function (req,res)
-    {
+    signin: function (req,res) {
         passport.authenticate('local',
         onPassportAuth.bind(this,req,res))(req,res);
     },
@@ -33,6 +33,9 @@ module.exports = {
         User
             .create(_.omit(req.allParams(),'id'))
             .then(function(user){
+
+                LogService.UserCreate(user);
+
                 return {
                     user: user,
                     token: SecurityService.createToken(user)
@@ -42,9 +45,5 @@ module.exports = {
             .then(res.created)
             .catch(res.serverError)
     },
-    loginForm: function(req,res) {
-		return res.view('login');
-    }
-
 };
 
