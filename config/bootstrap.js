@@ -26,49 +26,33 @@ module.exports.bootstrap = function(cb) {
 					})
 					.catch(function(err){
 						console.log(err)
-					}),
-				UserGroup
-					.create({name: 'wellgroup'})
-					.catch(function(err){
-                                                console.log(err)
-                                        }),
+					});
 				User
 					.create({username: 'tony', email: 'tony@to.ny', firstName: 'Tony', lastName: 'Launay', password: 'azertyuiop'})
 					.catch(function(err){
-                                                console.log(err)
-                                        })
+					  console.log(err)
+					});
 			}
 	  }
   });
   // Create default user group
-  UserGroup.findOne({name: 'default_UserGroup'}).exec(function(err, found){
-	  if(err){
-		  console.log(err)
-	  } else {
-		  if(!found){
-			  UserGroup.create({name: 'default_UserGroup'}).exec(function(err, user){
-				  if(err){
-					  console.log(err);
-				  }
-			  })
-		  }
-	  }
+  UserGroup.findOrCreate({name: 'default'}).populate('members').then(function(group) {
+    User.findOne({username: 'tony'}).exec(function(err, user) {
+      if(!err) {
+        group.members.add(user);
+        group.save();
+      }
+    });
+  }).catch(function(err) {
+    console.log(err)
   });
-	// Create default device group
-  DeviceGroup.findOne({name: 'default_DeviceGroup'}).exec(function(err, found){
-	  if(err){
-		  console.log(err)
-	  } else {
-		  if(!found){
-			  DeviceGroup.create({name: 'default_DeviceGroup'}).exec(function(err, user){
-				  if(err){
-					  console.log(err);
-				  }
-			  })
-		  }
-	  }
+
+  // Create default device group
+  DeviceGroup.findOrCreate({name: 'default'}).exec(function(err, group) {
+    if(err)
+      console.log(err);
   });
-	
+
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();
