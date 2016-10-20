@@ -25,12 +25,10 @@ module.exports = {
           required: true
         },
         firstName: {
-          type: 'string',
-          defaultsTo: ''
+          type: 'string'
         },
         lastName: {
-          type: 'string',
-          defaultsTo: ''
+          type: 'string'
         },
         isAdmin: {
           type: 'boolean',
@@ -52,6 +50,7 @@ module.exports = {
             delete obj.password;
             delete obj.createdAt;
             delete obj.updatedAt;
+	    delete obj.logs;
             /*  delete obj.id;*/
             return obj;
         }
