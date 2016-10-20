@@ -26,7 +26,17 @@ module.exports.bootstrap = function(cb) {
 					})
 					.catch(function(err){
 						console.log(err)
-					})
+					}),
+				UserGroup
+					.create({name: 'wellgroup'})
+					.catch(function(err){
+                                                console.log(err)
+                                        }),
+				User
+					.create({username: 'tony', email: 'tony@to.ny', firstName: 'Tony', lastName: 'Launay', password: 'azertyuiop'})
+					.catch(function(err){
+                                                console.log(err)
+                                        })
 			}
 	  }
   });
