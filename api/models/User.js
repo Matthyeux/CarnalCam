@@ -49,6 +49,7 @@ module.exports = {
             delete obj.password;
             delete obj.createdAt;
             delete obj.updatedAt;
+	    delete obj.logs;
             /*  delete obj.id;*/
             return obj;
         }
