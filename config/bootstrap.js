@@ -17,15 +17,45 @@ module.exports.bootstrap = function(cb) {
 	  } else {
 		  if(!found){
 				User
-					.create({username: 'carnal', email: 'contact@carnal.com', password: 'carnal'})
+					.create({username: 'carnal', email: 'contact@carnal.com', firstName: 'CarnalCam', lastName: 'Project IoT', password: 'carnal'})
 					.then(function(user){
 						return {
 							user: user,
 							token: SecurityService.createToken(user)
 						}
 					})
-					.catch(console.log("error, impossible to create 'carnal' user"))
+					.catch(function(err){
+						console.log(err)
+					})
 			}
+	  }
+  });
+  // Create default user group
+  UserGroup.findOne({name: 'default_UserGroup'}).exec(function(err, found){
+	  if(err){
+		  console.log(err)
+	  } else {
+		  if(!found){
+			  UserGroup.create({name: 'default_UserGroup'}).exec(function(err, user){
+				  if(err){
+					  console.log(err);
+				  }
+			  })
+		  }
+	  }
+  });
+	// Create default device group
+  DeviceGroup.findOne({name: 'default_DeviceGroup'}).exec(function(err, found){
+	  if(err){
+		  console.log(err)
+	  } else {
+		  if(!found){
+			  DeviceGroup.create({name: 'default_DeviceGroup'}).exec(function(err, user){
+				  if(err){
+					  console.log(err);
+				  }
+			  })
+		  }
 	  }
   });
 	

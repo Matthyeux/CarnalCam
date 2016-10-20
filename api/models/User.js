@@ -25,12 +25,10 @@ module.exports = {
           required: true,
         },
         firstName: {
-          type: 'string',
-          defaultsTo: ''
+          type: 'string'
         },
         lastName: {
-          type: 'string',
-          defaultsTo: ''
+          type: 'string'
         },
         role: {
 	        model: 'Role'
