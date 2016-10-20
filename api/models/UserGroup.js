@@ -8,11 +8,11 @@
 module.exports = {
 
   attributes: {
-	name: {
-		type: 'string',
-		required: true,
-		unique: true
-	},
+	  name: {
+      type: 'string',
+      required: true,
+      unique: true
+    },
   	role: {
 	    model: 'Role'
     },

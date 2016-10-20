@@ -37,7 +37,5 @@ module.exports = {
     }
     return next();
   }
-
-
 };
 

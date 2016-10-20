@@ -22,7 +22,23 @@ module.exports.policies = {
 	'*' : ['isAuthenticated'],
 	AuthController: {
 		'*': true
-	}
+	},
+
+  UserController: {
+    'updateGroup': ['isNecessary']
+  },
+
+  UserGroupController: {
+    'updateUser': ['isNecessary']
+  },
+
+  DeviceController: {
+    'updateGroup': ['isNecessary']
+  },
+
+  DeviceGroupController: {
+    'updateDevice': ['isNecessary']
+  }
 
 
 

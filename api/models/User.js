@@ -18,11 +18,11 @@ module.exports = {
         email: {
           type: 'email',
           required: true,
-          unique: true,
+          unique: true
         },
         password: {
           type: 'string',
-          required: true,
+          required: true
         },
         firstName: {
           type: 'string',
@@ -32,10 +32,10 @@ module.exports = {
           type: 'string',
           defaultsTo: ''
         },
-	isAdmin: {
-	  type: 'boolean',
-	  defaultsTo: false
-	},
+        isAdmin: {
+          type: 'boolean',
+          defaultsTo: false
+        },
         groups: {
 	        collection: 'UserGroup',
 	        via: 'members',
@@ -45,6 +45,7 @@ module.exports = {
 	        collection: 'Log',
 	        via: 'user'
         },
+
 
         toJSON: function () {
             var obj = this.toObject();
