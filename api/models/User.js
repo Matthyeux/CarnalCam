@@ -30,9 +30,10 @@ module.exports = {
         lastName: {
           type: 'string'
         },
-        role: {
-	        model: 'Role'
-        },
+	isAdmin: {
+	  type: 'boolean',
+	  defaultsTo: false
+	},
         groups: {
 	        collection: 'UserGroup',
 	        via: 'members',
