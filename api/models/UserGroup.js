@@ -23,7 +23,9 @@ module.exports = {
 
     toJSON: function() {
       var object = this.toObject();
-      object.membersCount = object.members.length;
+      if(object.members != null) {
+        object.membersCount = object.members.length;
+      }
       return object;
     }
   }
