@@ -29,7 +29,6 @@ function LogService(){
         }
       });
     },
-
     UserAddGroup: function (user, group) {
       Log.create({user: user, device: null, type: "Add Group", description:"User : "+user.username+" add group :"+group.name}).exec(function createCB(err, created){
         if(err) {
@@ -44,7 +43,6 @@ function LogService(){
         }
       });
     },
-
     DeviceCreate: function (device) {
       Log.create({user: null, device: device, type: "CREATE", description:"Device create "+device.name}).exec(function createCB(err, created){
         if(err) {
@@ -59,7 +57,6 @@ function LogService(){
         }
       });
     },
-
     DeviceStartRecording: function (user, device) {
       Log.create({user: user, device: device, type: "REC", description:"Device "+device.name+" start recording by "+user.username}).exec(function createCB(err, created){
         if(err) {
@@ -81,7 +78,6 @@ function LogService(){
         }
       });
     },
-
     DeviceAddGroup: function (device, group) {
       Log.create({user: null, device: device, type: "CREATE", description:"Device "+device.name+" add group :"+group.name}).exec(function createCB(err, created){
         if(err) {
@@ -96,8 +92,6 @@ function LogService(){
         }
       });
     },
-
-
 
   }
 
