@@ -62,6 +62,10 @@ module.exports = {
         return {
           token: user.resetPasswordToken
         }
+      } else {
+        return {
+          message: 'no user found'
+        }
       }
 
     }).then(res.ok)
