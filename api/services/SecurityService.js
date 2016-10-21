@@ -19,10 +19,20 @@ module.exports  = {
             },
             sails.config.jwtSettings.secret,
             {
-                algorithm: sails.config.jwtSettings.algo,
-                expiresIn: sails.config.jwtSettings.expires
+                algorithm: sails.config.jwtSettings.algorithm,
+                expiresIn: sails.config.jwtSettings.expiresIn
             }
         )
+    },
+
+    createResetToken: function(user) {
+      return jwt.sign({
+          user: user.toJSON()
+        },
+        sails.config.jwtSettings.secret,
+        {
+          algorithm: sails.config.jwtSettings.algorithm
+        })
     }
 
 }

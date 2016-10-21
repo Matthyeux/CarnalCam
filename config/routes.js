@@ -34,6 +34,8 @@ module.exports.routes = {
 
   'POST /auth/signin' : 'AuthController.signin',
   'POST /auth/signup' : 'AuthController.signup',
+  'POST /auth/forgot' : 'AuthController.forgotPassword',
+  'POST /auth/reset/' : 'AuthController.resetPassword',
 
   'PUT /user/:id' : 'UserController.updateGroup',
   'PUT /device/:id' : 'DeviceController.updateGroup',

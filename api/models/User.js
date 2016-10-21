@@ -43,6 +43,15 @@ module.exports = {
 	        collection: 'Log',
 	        via: 'user'
         },
+        resetPasswordToken: {
+          type: 'string',
+          unique: true,
+          default: null
+        },
+        resetPasswordExpires: {
+          type: 'integer',
+          default: null
+        },
 
 
         toJSON: function () {
@@ -50,7 +59,7 @@ module.exports = {
             delete obj.password;
             delete obj.createdAt;
             delete obj.updatedAt;
-	    delete obj.logs;
+	          delete obj.logs;
             /*  delete obj.id;*/
             return obj;
         }
