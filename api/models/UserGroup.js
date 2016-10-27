@@ -19,14 +19,6 @@ module.exports = {
     members: {
         collection: 'User',
         via: 'groups'
-    },
-
-    toJSON: function() {
-      var object = this.toObject();
-      if(object.members != null) {
-        object.membersCount = object.members.length;
-      }
-      return object;
     }
   }
 };
