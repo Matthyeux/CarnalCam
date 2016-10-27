@@ -10,7 +10,6 @@ module.exports = {
   attributes: {
 		name: {
 			type: 'string',
-			required: true,
 			unique: true
 		},
 		recording: {
@@ -18,7 +17,9 @@ module.exports = {
 			defaultsTo: false
 		},
 		identifier: {
-			type: 'string'
+			type: 'string',
+                        required: true,
+                        unique: true
 		},
 		position: {
 			type: 'string'
