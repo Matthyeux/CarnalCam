@@ -63,17 +63,16 @@ module.exports = {
 
         MailService.resetPassword(user, user.resetPasswordToken);
 
-        return {
-          token: user.resetPasswordToken
-        }
+        return res.ok({
+          message: 'email sent successfully'
+        })
       } else {
-        return {
-          message: 'no user found'
-        }
+        return res.notFound({
+          error: 'no user found'
+        })
       }
 
-    }).then(res.ok)
-      .catch(res.serverError);
+    }).catch(res.serverError);
   },
 
   resetPassword: function(req, res) {
