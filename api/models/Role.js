@@ -9,7 +9,8 @@ module.exports = {
 
   attributes: {
 		acl: {
-			type: 'string'
+			type: 'string',
+      enum: ['manager', 'viewer']
 		}
   }
 };

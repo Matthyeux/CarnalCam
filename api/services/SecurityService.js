@@ -33,6 +33,10 @@ module.exports  = {
         {
           algorithm: sails.config.jwtSettings.algorithm
         })
+    },
+
+    decodeJWT: function(token) {
+      return jwt.decode(token);
     }
 
 }

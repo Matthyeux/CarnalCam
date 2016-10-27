@@ -25,9 +25,9 @@ module.exports = {
   },
 
   updateGroup: function(req, res, next) {
+
     if(req.body.groups.length > 1) {
       UserGroup.find({id: req.body.groups}).exec(function(err, groups) {
-
         groups.map(function(group) {
           User.findOne({id: req.param('id')}).exec(function(err, user) {
             LogService.UserAddGroup(user, group)
@@ -35,6 +35,7 @@ module.exports = {
         })
       });
     }
+
     return next();
   }
 };
