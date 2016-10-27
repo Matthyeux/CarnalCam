@@ -18,8 +18,8 @@ module.exports = {
 		},
 		identifier: {
 			type: 'string',
-                        required: true,
-                        unique: true
+      required: true,
+      unique: true
 		},
 		position: {
 			type: 'string'

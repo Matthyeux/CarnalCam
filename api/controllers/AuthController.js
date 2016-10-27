@@ -30,20 +30,24 @@ module.exports = {
       onPassportAuth.bind(this,req,res))(req,res);
   },
   signup : function (req,res) {
-      User
-          .create(_.omit(req.allParams(),'id'))
-          .then(function(user){
+    User
+      .create(_.omit(req.allParams(),'id'))
+      .then(function(user){
 
-              LogService.UserCreate(user);
+        LogService.UserCreate(user);
 
-              return {
-                  user: user,
-                  token: SecurityService.createToken(user)
-              }
+        UserGroup.create({name: user.username, members: [user]}).exec(function(err,usergroup) {
+          if(err) return res.serverError(err);
+        });
 
-          })
-          .then(res.created)
-          .catch(res.serverError)
+        return {
+          user: user,
+          token: SecurityService.createToken(user)
+        }
+
+      })
+      .then(res.created)
+      .catch(res.serverError)
   },
 
   forgotPassword: function(req, res) {

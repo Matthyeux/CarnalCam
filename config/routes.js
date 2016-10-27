@@ -37,6 +37,8 @@ module.exports.routes = {
   'POST /auth/forgot' : 'AuthController.forgotPassword',
   'POST /auth/reset'  : 'AuthController.resetPassword',
 
+  'POST /device'      : 'DeviceController.createDevice',
+
   'PUT /user/:id' : 'UserController.updateGroup',
   'PUT /device/:id' : 'DeviceController.updateGroup',
   'PUT /devicegroup/:id' : 'DeviceGroupController.updateDevice',
