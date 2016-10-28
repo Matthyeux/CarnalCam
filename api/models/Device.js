@@ -26,7 +26,7 @@ module.exports = {
 		},
 		groups: {
       collection: 'DeviceGroup',
-      via: 'members',
+      via: 'devices',
       dominant: true
     }
   }

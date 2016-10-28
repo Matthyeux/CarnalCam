@@ -20,7 +20,7 @@ module.exports = {
       collection: 'User',
       via: 'groups'
     },
-    devicesgroup: {
+    devicesgroups: {
       collection: 'DeviceGroup'
     }
   }

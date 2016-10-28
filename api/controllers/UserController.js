@@ -17,47 +17,75 @@ module.exports = {
 
 	    user.groups.remove(req.body.groups);
       user.save(function(err) {
-        return res.ok({
-          user: user
-        })
+        return res.ok(
+          user
+        )
       })
     });
   },
 
-  updateModel: function(req, res, next) {
-
+  findUser: function(req, res, next) {
     if(req.user.isAdmin) {
-      User.update(req.param('id'), _.omit(req.allParams(), 'id'))
-        .then(function(user) {
-        return {
-          user: user
-        }
-      })
-        .then(res.created)
-        .catch(res.serverError);
+      return next();
     } else {
+      return res.ok(
+        req.user.visiblemembers
+      )
+    }
+  },
 
+  findOneUser: function(req, res, next) {
+    if(req.user.isAdmin) {
+      return next();
+    } else {
+      if(req.param('id') === req.user.id) return next();
 
+      var isAuthorized = false;
+      req.user.visiblemembers.map(function(member) {
+        if(req.param('id') === member.id) isAuthorized = true;
+      });
+
+      if(isAuthorized) return next();
+      else return res.unauthorized();
+    }
+  },
+
+  createUser: function(req, res, next) {
+    if(req.user.isAdmin) {
+      return next();
+    } else {
+      return res.unauthorized();
+    }
+  },
+
+  updateUser: function(req, res, next) {
+    if(req.user.isAdmin) {
+      return next();
+    } else {
       User.update(req.param('id') ,
         _.omit(req.allParams(), 'id', 'groups', 'username', 'isAdmin', 'logs', 'resetPasswordToken', 'resetPasswordExpires'))
         .then(function(users) {
 
           if(req.body.groups != null && req.body.groups.length > 0) {
             UserGroup.find({id: req.body.groups}).exec(function(err, groups) {
-              users.map(function(user) {
-                groups.map(function(group) {
-                  LogService.UserAddGroup(user, group)
-                })
-              });
+              groups.map(function(group) {
+                LogService.UserAddGroup(users[0], group)
+              })
             })
           }
 
-          return {
-            users: users
-          }
+          return users[0]
         })
-        .then(res.created)
+        .then(res.ok)
         .catch(res.serverError);
+    }
+  },
+
+  destroyUser: function(req, res, next) {
+    if(req.user.isAdmin) {
+      return next();
+    } else {
+      return res.unauthorized();
     }
   }
 };

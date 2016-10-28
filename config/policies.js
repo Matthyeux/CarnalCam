@@ -19,34 +19,10 @@
 
 module.exports.policies = {
 
-	'*' : ['isAuthenticated'],
+	'*' : ['isAuthenticated', 'session'],
 	AuthController: {
 		'*' : true
-	},
-
-  UserController: {
-	  '*'           : ['isAdmin'],
-    'findOne'     : ['isUserAuthorized'],
-    'updateModel' : ['isMe'],
-  },
-
-  UserGroupController: {
-    '*'              : ['isAdmin'],
-    'findOne'        : ['isMyGroup']
-  },
-
-  DeviceController: {
-    '*'           : ['isAdmin'],
-  },
-
-  DeviceGroupController: {
-    '*'           : ['isAdmin'],
-  }
-
-
-
-
-
+	}
 
 
 
