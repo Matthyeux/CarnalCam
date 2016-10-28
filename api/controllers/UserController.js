@@ -8,6 +8,8 @@
 
 module.exports = {
 
+
+
 	removeGroup: function(req, res){
 	  User.findOne({id: req.param('id')}).populate('groups').exec(function(err, user) {
 
@@ -24,19 +26,41 @@ module.exports = {
     });
   },
 
-  updateGroup: function(req, res, next) {
+  updateModel: function(req, res, next) {
 
-    if(req.body.groups.length > 1) {
-      UserGroup.find({id: req.body.groups}).exec(function(err, groups) {
-        groups.map(function(group) {
-          User.findOne({id: req.param('id')}).exec(function(err, user) {
-            LogService.UserAddGroup(user, group)
-          })
+    if(req.user.isAdmin) {
+      User.update(req.param('id'), _.omit(req.allParams(), 'id'))
+        .then(function(user) {
+        return {
+          user: user
+        }
+      })
+        .then(res.created)
+        .catch(res.serverError);
+    } else {
+
+
+      User.update(req.param('id') ,
+        _.omit(req.allParams(), 'id', 'groups', 'username', 'isAdmin', 'logs', 'resetPasswordToken', 'resetPasswordExpires'))
+        .then(function(users) {
+
+          if(req.body.groups != null && req.body.groups.length > 0) {
+            UserGroup.find({id: req.body.groups}).exec(function(err, groups) {
+              users.map(function(user) {
+                groups.map(function(group) {
+                  LogService.UserAddGroup(user, group)
+                })
+              });
+            })
+          }
+
+          return {
+            users: users
+          }
         })
-      });
+        .then(res.created)
+        .catch(res.serverError);
     }
-
-    return next();
   }
 };
 

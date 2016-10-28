@@ -68,7 +68,7 @@ module.exports = {
         })
       } else {
         return res.notFound({
-          error: 'no user found'
+          error: 'user not found'
         })
       }
 

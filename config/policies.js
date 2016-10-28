@@ -27,22 +27,19 @@ module.exports.policies = {
   UserController: {
 	  '*'           : ['isAdmin'],
     'findOne'     : ['isUserAuthorized'],
-    'updateGroup' : ['isNecessary', 'isAdmin'],
+    'updateModel' : ['isMe'],
   },
 
   UserGroupController: {
     '*'           : ['isAdmin'],
-    'updateUser'  : ['isNecessary', 'isAdmin'],
   },
 
   DeviceController: {
     '*'           : ['isAdmin'],
-    'updateGroup' : ['isNecessary', 'isAdmin'],
   },
 
   DeviceGroupController: {
     '*'           : ['isAdmin'],
-    'updateDevice': ['isNecessary', 'isAdmin'],
   }
 
 
