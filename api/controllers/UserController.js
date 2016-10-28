@@ -8,8 +8,6 @@
 
 module.exports = {
 
-
-
 	removeGroup: function(req, res){
 	  User.findOne({id: req.param('id')}).populate('groups').exec(function(err, user) {
 

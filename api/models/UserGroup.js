@@ -17,8 +17,11 @@ module.exports = {
 	    model: 'Role'
     },
     members: {
-        collection: 'User',
-        via: 'groups'
+      collection: 'User',
+      via: 'groups'
+    },
+    devicesgroup: {
+      collection: 'DeviceGroup'
     }
   }
 };

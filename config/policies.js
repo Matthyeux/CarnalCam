@@ -31,7 +31,8 @@ module.exports.policies = {
   },
 
   UserGroupController: {
-    '*'           : ['isAdmin'],
+    '*'              : ['isAdmin'],
+    'findOne'        : ['isMyGroup']
   },
 
   DeviceController: {
