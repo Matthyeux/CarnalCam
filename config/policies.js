@@ -25,40 +25,24 @@ module.exports.policies = {
 	},
 
   UserController: {
-	  'create'      : ['isAdmin'],
-    'destroy'     : ['isAdmin'],
-    'find'        : ['isAdmin'],
+	  '*'           : ['isAdmin'],
     'findOne'     : ['isUserAuthorized'],
     'updateGroup' : ['isNecessary', 'isAdmin'],
-    'update'      : ['isAdmin'],
-    'removeGroup' : ['isAdmin']
   },
 
   UserGroupController: {
-    '*'           : true,
-    'create'      : ['isAdmin'],
-    'destroy'     : ['isAdmin'],
-    'update'      : ['isAdmin'],
+    '*'           : ['isAdmin'],
     'updateUser'  : ['isNecessary', 'isAdmin'],
-    'removeUser'  : ['isAdmin']
   },
 
   DeviceController: {
-    '*'           : true,
-    'create'      : ['isAdmin'],
-    'destroy'     : ['isAdmin'],
-    'update'      : ['isAdmin'],
+    '*'           : ['isAdmin'],
     'updateGroup' : ['isNecessary', 'isAdmin'],
-    'removeGroup' : ['isAdmin']
   },
 
   DeviceGroupController: {
-    '*'           : true,
-    'create'      : ['isAdmin'],
-    'destroy'     : ['isAdmin'],
-    'update'      : ['isAdmin'],
+    '*'           : ['isAdmin'],
     'updateDevice': ['isNecessary', 'isAdmin'],
-    'removeDevice': ['isAdmin']
   }
 
 
