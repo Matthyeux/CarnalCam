@@ -18,19 +18,21 @@ module.exports = {
         email: {
           type: 'email',
           required: true,
-          unique: true,
+          unique: true
         },
         password: {
           type: 'string',
-          required: true,
+          required: true
         },
         firstName: {
-          type: 'string',
-          defaultsTo: ''
+          type: 'string'
         },
         lastName: {
-          type: 'string',
-          defaultsTo: ''
+          type: 'string'
+        },
+        isAdmin: {
+          type: 'boolean',
+          defaultsTo: false
         },
         groups: {
 	        collection: 'UserGroup',
@@ -41,12 +43,23 @@ module.exports = {
 	        collection: 'Log',
 	        via: 'user'
         },
+        resetPasswordToken: {
+          type: 'string',
+          unique: true,
+          default: null
+        },
+        resetPasswordExpires: {
+          type: 'integer',
+          default: null
+        },
+
 
         toJSON: function () {
             var obj = this.toObject();
             delete obj.password;
             delete obj.createdAt;
             delete obj.updatedAt;
+	          delete obj.logs;
             /*  delete obj.id;*/
             return obj;
         }

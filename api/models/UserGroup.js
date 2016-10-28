@@ -8,18 +8,18 @@
 module.exports = {
 
   attributes: {
-		name: {
-			type: 'string',
-			required: true,
-			unique: true
-		},
-		role: {
-      model: 'Role'
+	  name: {
+      type: 'string',
+      required: true,
+      unique: true
+    },
+  	role: {
+	    model: 'Role'
     },
     members: {
-			collection: 'User',
-			via: 'groups'
-		}
+        collection: 'User',
+        via: 'groups'
+    }
   }
 };
 
