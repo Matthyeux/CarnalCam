@@ -4,6 +4,9 @@ module.exports = function(req, res, next) {
     var token = req.headers.authorization.split(' ')[1];
     json = SecurityService.decodeJWT(token);
     if(json.user !== null) {
+      req.user = json.user;
+      if(req.user.isAdmin) return next();
+
       User.findOne({id: json.user.id}).populate('groups').then(function(user) {
         req.user = user;
         if(req.user.hasOwnProperty('groups'))

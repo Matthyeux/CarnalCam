@@ -33,7 +33,7 @@ module.exports = {
   },
 
   createDeviceGroup: function(req, res, next) {
-    if(res.user.isAdmin) {
+    if(req.user.isAdmin) {
       return next();
     } else {
       return res.unauthorized();
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   updateDeviceGroup: function(req, res, next) {
-    if(res.user.isAdmin) {
+    if(req.user.isAdmin) {
       if(req.body.hasOwnProperty("devices") && req.body.devices > 0) {
         Device.find({id: req.body.devices}).then(function (devices) {
           devices.map(function (device) {
@@ -61,7 +61,7 @@ module.exports = {
   },
 
   destroyDeviceGroup: function(req, res, next) {
-    if(res.user.isAdmin) {
+    if(req.user.isAdmin) {
       return next();
     } else {
       return res.unauthorized();
@@ -75,7 +75,7 @@ module.exports = {
         LogService.DeviceDeleteGroup(device, group);
       });
 
-      group.members.remove(req.body.members);
+      group.devices.remove(req.body.devices);
 
       group.save(function(err) {
         return res.ok(
