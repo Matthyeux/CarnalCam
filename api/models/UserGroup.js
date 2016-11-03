@@ -14,7 +14,9 @@ module.exports = {
       unique: true
     },
   	role: {
-	    model: 'Role'
+	    type: "string",
+      enum: ["none", "viewer", "manager"],
+      defaultsTo: "none"
     },
     members: {
       collection: 'User',
