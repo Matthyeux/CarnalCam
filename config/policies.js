@@ -24,26 +24,6 @@ module.exports.policies = {
 		'*' : true
 	},
 
-  UserController: {
-	  '*'           : [true],
-    'findOne'     : ['isUserAuthorized'],
-    'updateModel' : ['isMe'],
-  },
-
-  UserGroupController: {
-    '*'           : ['isAdmin'],
-  },
-
-  DeviceController: {
-    '*'           : ['isAdmin'],
-  },
-
-  DeviceGroupController: {
-    '*'           : ['isAdmin'],
-  }
-
-
-
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
