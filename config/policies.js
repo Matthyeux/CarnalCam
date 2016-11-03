@@ -19,7 +19,7 @@
 
 module.exports.policies = {
 
-	'*' : ['isAuthenticated'],
+	'*' : ['isAuthenticated', 'session'],
 	AuthController: {
 		'*' : true
 	},
@@ -42,10 +42,7 @@ module.exports.policies = {
     '*'           : ['isAdmin'],
   }
 
-
-
-
-
+}
 
 
 

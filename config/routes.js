@@ -37,12 +37,31 @@ module.exports.routes = {
   'POST /auth/forgot' : 'AuthController.forgotPassword',
   'POST /auth/reset'  : 'AuthController.resetPassword',
 
-  'POST /device'      : 'DeviceController.createDevice',
+  'GET /user'         : 'UserController.findUser',
+  'GET /user/:id'     : 'UserController.findOneUser',
+  'POST /user'        : 'UserController.createUser',
+  'PUT /user/:id'     : 'UserController.updateUser',
+  'DELETE /user/:id'  : 'UserController.destroyUser',
 
-  'PUT /user/:id' : 'UserController.updateModel',
-  'PUT /device/:id' : 'DeviceController.updateGroup',
-  'PUT /devicegroup/:id' : 'DeviceGroupController.updateDevice',
-  'PUT /usergroup/:id' : 'UserGroupController.updateUser',
+  'GET /usergroup'         : 'UserGroupController.findUserGroup',
+  'GET /usergroup/:id'     : 'UserGroupController.findOneUserGroup',
+  'POST /usergroup'        : 'UserGroupController.createUserGroup',
+  'PUT /usergroup/:id'     : 'UserGroupController.updateUserGroup',
+  'DELETE /usergroup/:id'  : 'UserGroupController.destroyUserGroup',
+
+  'GET /device'         : 'DeviceController.findDevice',
+  'GET /device/:id'     : 'DeviceController.findOneDevice',
+  'POST /device'        : 'DeviceController.createDevice',
+  'PUT /device/:id'     : 'DeviceController.updateDevice',
+  'DELETE /device/:id'  : 'DeviceController.destroyDevice',
+
+  'GET /devicegroup'         : 'DeviceGroupController.findDeviceGroup',
+  'GET /devicegroup/:id'     : 'DeviceGroupController.findOneDeviceGroup',
+  'POST /devicegroup'        : 'DeviceGroupController.createDeviceGroup',
+  'PUT /devicegroup/:id'     : 'DeviceGroupController.updateDeviceGroup',
+  'DELETE /devicegroup/:id'  : 'DeviceGroupController.destroyDeviceGroup',
+
+
 
   'DELETE /user/removegroup/:id/' : 'UserController.removeGroup',
   'DELETE /usergroup/removeuser/:id' : 'UserGroup.removeUser',

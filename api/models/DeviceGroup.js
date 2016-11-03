@@ -13,7 +13,7 @@ module.exports = {
 			required: true,
 			unique: true
 		},
-		members: {
+		devices: {
 			collection: 'Device',
 			via: 'groups'
 		}
