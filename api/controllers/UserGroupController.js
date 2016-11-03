@@ -90,7 +90,23 @@ module.exports = {
         )
       })
     });
-  }
+  },
 
+  removeDeviceGroup: function(req, res){
+    UserGroup.findOne({id: req.param('id')}).populate('devicesgroups').exec(function(err, group) {
+
+      group.devicesgroups.map(function(devicegroups) {
+        LogService.DeviceDeleteGroup(devicegroups, group);
+      });
+      group.devicesgroups.remove(req.body.devicegroups);
+
+      group.save(function(err) {
+        return res.ok(
+          group
+        )
+      })
+    });
+  }
+  
 };
 

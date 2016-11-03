@@ -62,7 +62,7 @@ module.exports.routes = {
   'DELETE /devicegroup/:id'  : 'DeviceGroupController.destroyDeviceGroup',
 
 
-
+  'DELETE /usergroup/removedevicegroup/:id/' : 'UserGroupController.removeDeviceGroup',
   'DELETE /user/removegroup/:id/' : 'UserController.removeGroup',
   'DELETE /usergroup/removeuser/:id' : 'UserGroup.removeUser',
   'DELETE /device/removegroup/:id/' : 'DeviceController.removeGroup',
