@@ -37,8 +37,11 @@ module.exports = {
 
   createDevice: function(req, res, next) {
     Device.findOrCreate({identifier: req.body.identifier, name: req.body.name, position: req.body.position}).exec(function(err, device) {
-      DeviceGroup.findOrCreate({name: device.name}).exec(function(err, devicegroup) {
+      if(err) return res.serverError(err);
+      DeviceGroup.findOrCreate({name: device.name}).populate('devices').exec(function(err, devicegroup) {
         if(err) return res.serverError(err);
+        devicegroup.devices.add(device);
+        devicegroup.save(function(err) {});
         return res.ok({
           device: device,
           devicegroup: devicegroup
