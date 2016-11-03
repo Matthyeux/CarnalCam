@@ -22,7 +22,8 @@ module.exports = {
       unique: true
 		},
 		position: {
-			type: 'string'
+			type: 'integer',
+      required: true
 		},
 		groups: {
       collection: 'DeviceGroup',
