@@ -11,6 +11,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
+      Device.suscribe(req, _.pluck(req.user.visibledevices, 'id'));
       return res.ok(
         req.user.visibledevices
       );
@@ -23,7 +24,10 @@ module.exports = {
     } else {
       var isAuthorized = false;
       req.user.visibledevices.map(function(device) {
-        if(device.id === req.param('id')) isAuthorized = true;
+        if(device.id === req.param('id')) {
+          isAuthorized = true;
+          Device.suscribe(req, device.id);
+        }
       });
 
       if(isAuthorized) return next();
@@ -91,6 +95,5 @@ module.exports = {
       })
     });
   },
-
 };
 

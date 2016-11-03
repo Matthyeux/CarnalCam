@@ -11,6 +11,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
+      UserGroup.suscribe(req, _.pluck(req.user.groups, 'id'));
       return res.ok(
         req.user.groups
       )
@@ -24,7 +25,10 @@ module.exports = {
 
       var isAuthorized = false;
       req.user.groups.map(function(group) {
-        if(group.id === req.param('id')) isAuthorized = true;
+        if(group.id === req.param('id')){
+          UserGroup.suscribe(req, group.id);
+          isAuthorized = true;
+        }
       });
 
       if(isAuthorized) return next();
@@ -107,6 +111,6 @@ module.exports = {
       })
     });
   }
-  
+
 };
 

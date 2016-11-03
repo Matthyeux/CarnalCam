@@ -12,6 +12,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
+      DeviceGroup.suscribe(req, _.pluck(req.user.devicesgroups));
       return res.ok(
         req.user.devicesgroups
       )
@@ -24,7 +25,10 @@ module.exports = {
     } else {
       var isAuthorized = false;
       req.user.devicesgroups.map(function(devicegroup) {
-        if(devicegroup.id === req.param('id')) isAuthorized = true;
+        if(devicegroup.id === req.param('id')) {
+          DeviceGroup.suscribe(req, devicegroup.id);
+          isAuthorized = true;
+        }
       });
 
       if(isAuthorized) return next();
