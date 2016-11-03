@@ -24,6 +24,10 @@ module.exports.policies = {
 		'*' : true
 	},
 
+  DeviceController: {
+	  'createDevice': true
+  }
+
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
