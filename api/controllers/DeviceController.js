@@ -11,7 +11,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
-      Device.suscribe(req, _.pluck(req.user.visibledevices, 'id'));
+      Device.subscribe(req, _.pluck(req.user.visibledevices, 'id'));
       return res.ok(
         req.user.visibledevices
       );
@@ -26,7 +26,7 @@ module.exports = {
       req.user.visibledevices.map(function(device) {
         if(device.id === req.param('id')) {
           isAuthorized = true;
-          Device.suscribe(req, device.id);
+          Device.subscribe(req, device.id);
         }
       });
 
@@ -66,7 +66,24 @@ module.exports = {
         })
       }
     } else {
-      return res.unauthorized();
+
+
+      if(req.body.position != null) {
+        Device.update({id: req.param('id')}, {position: req.body.position}).exec(function(err, device) {
+          if(err) return res.serverError(err);
+          return res.ok(device);
+        })
+      }
+
+      if(req.body.recording != null) {
+        Device.update({id: req.param('id')},{recording: req.body.recording}).exec(function(err, device) {
+          if(err) return res.serverError(err);
+          return res.ok(device);
+        })
+      }
+
+      if(req.body.position == null && req.body.recording == null) return res.badRequest();
+      //return res.unauthorized();
     }
 
   },

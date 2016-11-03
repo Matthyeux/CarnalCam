@@ -28,7 +28,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
-      User.suscribe(req, _.pluck(req.user.visiblemembers, 'id'));
+      User.subscribe(req, _.pluck(req.user.visiblemembers, 'id'));
       return res.ok(
         req.user.visiblemembers
       )
@@ -44,7 +44,7 @@ module.exports = {
       var isAuthorized = false;
       req.user.visiblemembers.map(function(member) {
         if(req.param('id') === member.id) {
-          User.suscribe(req, _.pluck(member.id));
+          User.subscribe(req, _.pluck(member.id));
           isAuthorized = true;
         }
       });
