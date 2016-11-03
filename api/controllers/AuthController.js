@@ -14,6 +14,14 @@ function onPassportAuth(req, res, error, user, info)  {
 
     LogService.UserLogin(user);
 
+    /*sails.sockets.addRoomMembersToRooms('message', ['greatRoom'], function(err) {
+      if (err) {return res.serverError(err);}
+      res.json({
+        message: 'Subscribed all members of `funRoom` to `greatRoom` and `awesomeRoom`!'
+      });
+    });*/
+    sails.sockets.broadcast('message', { greeting: 'Hola!' });
+
     return res.ok (
         {
             token : SecurityService.createToken(user),

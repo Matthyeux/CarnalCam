@@ -1,5 +1,4 @@
 function LogService(){
-
   return{
     UserLogin: function (user) {
       Log.create({user: user, device: null, type: "LOGIN", description:"User login "+user.username}).exec(function createCB(err, created){

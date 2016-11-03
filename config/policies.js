@@ -25,7 +25,7 @@ module.exports.policies = {
 	},
 
   UserController: {
-	  '*'           : ['isAdmin'],
+	  '*'           : [true],
     'findOne'     : ['isUserAuthorized'],
     'updateModel' : ['isMe'],
   },
