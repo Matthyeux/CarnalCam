@@ -59,14 +59,10 @@ module.exports = {
               LogService.DeviceAddGroup(group, device)
             })
           })
-        }).then(function () {
-            return next()
-        }).catch(function (error) {
-            res.serverError(error.message);
         })
       }
-    } else {
-
+      return next();
+    } else if(req.body.position != null || req.body.recording != null) {
 
       if(req.body.position != null) {
         Device.update({id: req.param('id')}, {position: req.body.position}).exec(function(err, device) {
@@ -82,8 +78,8 @@ module.exports = {
         })
       }
 
-      if(req.body.position == null && req.body.recording == null) return res.badRequest();
-      //return res.unauthorized();
+    } else {
+      return res.unauthorized();
     }
 
   },
