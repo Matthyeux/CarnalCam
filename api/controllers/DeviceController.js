@@ -69,6 +69,7 @@ module.exports = {
       if(req.body.position != null) {
         Device.update({id: req.param('id')}, {position: req.body.position}).exec(function(err, device) {
           if(err) return res.serverError(err);
+          device = device[0];
           Device.publishUpdate(device.id, device, req);
           return res.ok(device);
         })
@@ -77,6 +78,7 @@ module.exports = {
       if(req.body.recording != null) {
         Device.update({id: req.param('id')},{recording: req.body.recording}).exec(function(err, device) {
           if(err) return res.serverError(err);
+          device = device[0];
           Device.publishUpdate(device.id, device, req);
           return res.ok(device);
         })
