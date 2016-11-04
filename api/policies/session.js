@@ -12,13 +12,20 @@ module.exports = function(req, res, next) {
         if(req.user.hasOwnProperty('groups'))
           return UserGroup.find({id: user.groups.map(function(group) {return group.id})}).populate('members').populate('devicesgroups')
       }).then(function(groups) {
+        req.user.visiblemembers = [];
+        req.user.devicesgroups = [];
         if(groups != null) groups.map(function(group) {
-          if(group.hasOwnProperty('members')) req.user.visiblemembers = group.members;
-          if(group.hasOwnProperty('devicesgroups')) {
-            req.user.devicesgroups = group.devicesgroups;
-            return DeviceGroup.find({id: group.devicesgroups.map(function(devicegroup) {return devicegroup.id})}).populate('devices')
-          }
-        })
+          if(group.hasOwnProperty('members')) group.members.map(function(member) {
+            if(member.id != null) req.user.visiblemembers.push(member);
+          });
+          if(group.hasOwnProperty('devicesgroups')) group.devicesgroups.map(function(devicegroup) {
+            if(devicegroup.id != null) req.user.devicesgroups.push(devicegroup)
+          });
+        });
+
+        if(req.user.devicesgroups.length > 0) {
+          return DeviceGroup.find({id: req.user.devicesgroups.map(function(devicegroup) {return devicegroup.id})}).populate('devices')
+        }
       }).then(function(devicegroups) {
         if(devicegroups != null) devicegroups.map(function(devicegroup) {
           if(devicegroup.hasOwnProperty('devices')) req.user.visibledevices = devicegroup.devices;
