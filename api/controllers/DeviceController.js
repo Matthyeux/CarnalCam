@@ -38,12 +38,12 @@ module.exports = {
   createDevice: function(req, res, next) {
     Device.findOrCreate({identifier: req.body.identifier, name: req.body.name, position: req.body.position}).exec(function(err, device) {
       if(err) return res.serverError(err);
+      if(req.isSocket) Device.subscribe(req, device.id);
       Device.publishCreate(device.id, device, req);
       DeviceGroup.findOrCreate({name: device.name}).populate('devices').exec(function(err, devicegroup) {
         if(err) return res.serverError(err);
         devicegroup.devices.add(device);
         devicegroup.save(function(err) {});
-        DeviceGroup.publishCreate(devicegroup.id, devicegroup, req);
         return res.ok({
           device: device,
           devicegroup: devicegroup
@@ -112,6 +112,6 @@ module.exports = {
         )
       })
     });
-  },
+  }
 };
 
