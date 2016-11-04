@@ -89,7 +89,8 @@ module.exports = {
   },
 
   destroyDevice: function(req, res, next) {
-    if(req.user.isAdmin) {
+    if(req.isSocket) Device.unsubscribe(req, req.param('id'));
+    else if(req.user.isAdmin) {
       return next();
     } else {
       return res.unauthorized();
