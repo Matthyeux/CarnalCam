@@ -38,10 +38,12 @@ module.exports = {
   createDevice: function(req, res, next) {
     Device.findOrCreate({identifier: req.body.identifier, name: req.body.name, position: req.body.position}).exec(function(err, device) {
       if(err) return res.serverError(err);
+      Device.publishCreate(device.id, device, req);
       DeviceGroup.findOrCreate({name: device.name}).populate('devices').exec(function(err, devicegroup) {
         if(err) return res.serverError(err);
         devicegroup.devices.add(device);
         devicegroup.save(function(err) {});
+        DeviceGroup.publishCreate(devicegroup.id, devicegroup, req);
         return res.ok({
           device: device,
           devicegroup: devicegroup
@@ -67,6 +69,7 @@ module.exports = {
       if(req.body.position != null) {
         Device.update({id: req.param('id')}, {position: req.body.position}).exec(function(err, device) {
           if(err) return res.serverError(err);
+          Device.publishUpdate(device.id, device, req);
           return res.ok(device);
         })
       }
@@ -74,6 +77,7 @@ module.exports = {
       if(req.body.recording != null) {
         Device.update({id: req.param('id')},{recording: req.body.recording}).exec(function(err, device) {
           if(err) return res.serverError(err);
+          Device.publishUpdate(device.id, device, req);
           return res.ok(device);
         })
       }
@@ -101,6 +105,7 @@ module.exports = {
 
       device.groups.remove(req.body.groups);
       device.save(function(err) {
+        Device.publishUpdate(device.id, device, req);
         return res.ok(
           device
         )
