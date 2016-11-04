@@ -12,7 +12,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
-      DeviceGroup.subscribe(req, _.pluck(req.user.devicesgroups));
+      if(req.isSocket) DeviceGroup.subscribe(req, _.pluck(req.user.devicesgroups));
       return res.ok(
         req.user.devicesgroups
       )
@@ -26,7 +26,7 @@ module.exports = {
       var isAuthorized = false;
       req.user.devicesgroups.map(function(devicegroup) {
         if(devicegroup.id === req.param('id')) {
-          DeviceGroup.subscribe(req, devicegroup.id);
+          if(req.isSocket) DeviceGroup.subscribe(req, devicegroup.id);
           isAuthorized = true;
         }
       });

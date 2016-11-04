@@ -11,7 +11,7 @@ module.exports = {
     if(req.user.isAdmin) {
       return next();
     } else {
-      Device.subscribe(req, _.pluck(req.user.visibledevices, 'id'));
+      if(req.isSocket) Device.subscribe(req, _.pluck(req.user.visibledevices, 'id'));
       return res.ok(
         req.user.visibledevices
       );
@@ -26,7 +26,7 @@ module.exports = {
       req.user.visibledevices.map(function(device) {
         if(device.id === req.param('id')) {
           isAuthorized = true;
-          Device.subscribe(req, device.id);
+          if(req.isSocket) Device.subscribe(req, device.id);
         }
       });
 
